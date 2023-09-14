@@ -120,7 +120,7 @@ def get_user_favorites():
 def add_favorite_planet():
 
     data = request.get_json()
-    new_favorite_planet = Favorites(planet_id=data.planet_id)
+    new_favorite_planet = Favorites(user_id=data.user_id, planet_id=data["planet_id"])
     if request.method == 'POST':
         db.session.add(new_favorite_planet)
         db.session.commit()
@@ -131,7 +131,7 @@ def add_favorite_planet():
 @app.route('/favorite/people/', methods=['POST'])
 def add_favorite_people():
     data = request.get_json()
-    new_favorite_person = People(person_id=data["person_id"])
+    new_favorite_person = Favorites(user_id=data.user_id, person_id=data["person_id"])
     db.session.add(new_favorite_person)
     db.session.commit()
 
